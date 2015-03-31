@@ -1,26 +1,51 @@
 Base path: C:/Program Files (x86)/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-4-2000
+Pipe name: \\.\pipe\UnityShaderCompiler-4-4920
 Cmd: getPlatforms
 Cmd: compileSnippet
-  api=0 type=0 insize=5620 outsize=1673 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+  error: 2 plat 8 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=8 type=1 insize=1623 outsize=0 kw= ok=0
 Cmd: compileSnippet
-  api=1 type=1 insize=5620 outsize=795 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=1 insize=1623 outsize=0 kw= ok=0
 Cmd: compileSnippet
-  api=8 type=1 insize=5620 outsize=4307 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=0 insize=1623 outsize=0 kw= ok=0
 Cmd: compileSnippet
-  api=8 type=0 insize=3341 outsize=6045 kw=POINT ok=1
+  error: 2 plat 8 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=8 type=1 insize=1623 outsize=0 kw= ok=0
 Cmd: compileSnippet
-  api=4 type=0 insize=3341 outsize=4150 kw=SPOT ok=1
+  error: 2 plat 8 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=8 type=1 insize=1623 outsize=0 kw= ok=0
 Cmd: compileSnippet
-  api=4 type=0 insize=3341 outsize=4150 kw=POINT_COOKIE ok=1
+  error: 2 plat 8 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=8 type=1 insize=1623 outsize=0 kw= ok=0
 Cmd: compileSnippet
-  api=4 type=0 insize=3341 outsize=4061 kw=DIRECTIONAL_COOKIE ok=1
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=0 insize=1623 outsize=0 kw= ok=0
 Cmd: compileSnippet
-  api=1 type=1 insize=3341 outsize=799 kw=POINT ok=1
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=1 insize=1623 outsize=0 kw= ok=0
 Cmd: compileSnippet
-  api=0 type=1 insize=3341 outsize=1107 kw=SPOT ok=1
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=0 insize=1623 outsize=0 kw= ok=0
 Cmd: compileSnippet
-  api=8 type=1 insize=3341 outsize=4453 kw=SPOT ok=1
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=1 insize=1623 outsize=0 kw= ok=0
+Cmd: compileSnippet
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=0 insize=1623 outsize=0 kw= ok=0
+Cmd: compileSnippet
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=1 insize=1623 outsize=0 kw= ok=0
+Cmd: compileSnippet
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=0 insize=1623 outsize=0 kw= ok=0
+Cmd: compileSnippet
+  error: 2 plat 8 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=8 type=1 insize=1623 outsize=0 kw= ok=0
+Cmd: compileSnippet
+  error: 2 plat 4 at (37): 'tex2Dproj': no matching 2 parameter intrinsic function; Possible intrinsic functions are: tex2Dproj(sampler2D, float4|half4|min10float4|min16float4)
+  api=4 type=1 insize=1623 outsize=0 kw= ok=0
 Unhandled exception: Readfile from pipe failed. GLE=The pipe has been ended.
 
 

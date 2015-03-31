@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 173cf29354a6994458aea6aecfd7eb98
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - pistol: {instanceID: 0}
+  - rocketLauncher: {instanceID: 0}
+  - w3: {instanceID: 0}
+  - w4: {instanceID: 0}
+  - w5: {instanceID: 0}
+  - w6: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

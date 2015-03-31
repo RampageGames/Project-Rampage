@@ -106,8 +106,10 @@
      <Compile Include="Assets\Photon Unity Networking\UtilityScripts\TimeKeeper.cs" />
      <Compile Include="Assets\Prefabs\Resources\PlayerStuff\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Prefabs\Resources\PlayerStuff\Scripts\PlayerRaiseArm.cs" />
+     <Compile Include="Assets\Scripts\ActivateWeapon.cs" />
      <Compile Include="Assets\Scripts\CursorHideShow.cs" />
      <Compile Include="Assets\Scripts\FXManager.cs" />
+     <Compile Include="Assets\Scripts\FirePoint.cs" />
      <Compile Include="Assets\Scripts\FirstPersonController.cs" />
      <Compile Include="Assets\Scripts\Grenade.cs" />
      <Compile Include="Assets\Scripts\GrenadeThrow.cs" />
@@ -115,11 +117,18 @@
      <Compile Include="Assets\Scripts\NetworkBullet.cs" />
      <Compile Include="Assets\Scripts\NetworkCharacter.cs" />
      <Compile Include="Assets\Scripts\NetworkManager.cs" />
+     <Compile Include="Assets\Scripts\PickupSpawnFX.cs" />
      <Compile Include="Assets\Scripts\PlayerCrosshair.cs" />
-     <Compile Include="Assets\Scripts\PlayerShooting.cs" />
+     <Compile Include="Assets\Scripts\Rocket.cs" />
      <Compile Include="Assets\Scripts\SelfDestruct.cs" />
+     <Compile Include="Assets\Scripts\ShootBeam.cs" />
+     <Compile Include="Assets\Scripts\ShootPistol.cs" />
+     <Compile Include="Assets\Scripts\ShootRocketLauncher.cs" />
+     <Compile Include="Assets\Scripts\ShootShotgun.cs" />
      <Compile Include="Assets\Scripts\SpawnSpot.cs" />
      <Compile Include="Assets\Scripts\WeaponData.cs" />
+     <Compile Include="Assets\Scripts\WeaponSwitching.cs" />
+     <Compile Include="Assets\_IMPORTED\FX\SimpleParticlePack\Scripts\ParticleTester.cs" />
      <Compile Include="Assets\_IMPORTED\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
      <None Include="Assets\Plugins\release_history.txt" />
      <None Include="Assets\Photon Unity Networking\readme.txt" />
@@ -129,7 +138,7 @@
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.3/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Photon3Unity3D">
- <HintPath>C:/Users/Chris/Documents/rampagefiles/Assets/Plugins/Photon3Unity3D.dll</HintPath>
+ <HintPath>C:/Users/Chris/Documents/Project-Rampage/rampagefiles/Assets/Plugins/Photon3Unity3D.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

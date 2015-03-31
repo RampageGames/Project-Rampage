@@ -120,11 +120,19 @@ public class NetworkManager : MonoBehaviour {
 		((MonoBehaviour)myPlayerGO.GetComponent("PlayerMovement")).enabled = true;
 		//((MonoBehaviour)myPlayerGO.GetComponent("FPShooting")).enabled = true; // Red bombs that Cliff made
 		((MonoBehaviour)myPlayerGO.GetComponent("MouseLook")).enabled = true;
-		((MonoBehaviour)myPlayerGO.GetComponent("PlayerShooting")).enabled = true; // Raycast from tutorial
+		//((MonoBehaviour)myPlayerGO.GetComponent("ShootRocketLauncher")).enabled = true; // Raycast from tutorial
 		((MonoBehaviour)myPlayerGO.GetComponent("CursorHideShow")).enabled = true;
 		((MonoBehaviour)myPlayerGO.GetComponent("GrenadeThrow")).enabled = true;
+		((MonoBehaviour)myPlayerGO.GetComponent("ActivateWeapon")).enabled = true;
+
+
+		((MonoBehaviour)myPlayerGO.GetComponentInChildren<WeaponSwitching>()).enabled=true; // enables switching weapons
+
 		myPlayerGO.transform.FindChild("Main Camera").gameObject.SetActive(true);
+
 	}
+
+
 
 	void Update() {
 		if (respawnTimer > 0) {
@@ -136,5 +144,6 @@ public class NetworkManager : MonoBehaviour {
 			}
 
 		}
+
 	}
 }
