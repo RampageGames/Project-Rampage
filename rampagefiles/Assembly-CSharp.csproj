@@ -108,6 +108,7 @@
      <Compile Include="Assets\Prefabs\Resources\PlayerStuff\Scripts\PlayerRaiseArm.cs" />
      <Compile Include="Assets\Scripts\ActivateWeapon.cs" />
      <Compile Include="Assets\Scripts\CursorHideShow.cs" />
+     <Compile Include="Assets\Scripts\DetectPickup.cs" />
      <Compile Include="Assets\Scripts\FXManager.cs" />
      <Compile Include="Assets\Scripts\FirePoint.cs" />
      <Compile Include="Assets\Scripts\FirstPersonController.cs" />
