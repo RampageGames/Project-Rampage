@@ -11,6 +11,14 @@ public class WeaponSwitching : MonoBehaviour {
 	public Texture2D laserPistolTextureOff = null;
 	public Texture2D cowLauncherTexture = null;
 	public Texture2D cowLauncherTextureOff = null;
+	public Texture2D shotgunTexture = null;
+	public Texture2D shotgunTextureOff = null;
+	public Texture2D weaponLocked = null;
+
+	private Texture2D laserPistolIcon = null;
+	private Texture2D rocketLauncherIcon = null;
+	private Texture2D shotgunIcon = null;
+
 
 	private GameObject currentPlayer;
 	private WeaponSwitching ws;
@@ -18,14 +26,16 @@ public class WeaponSwitching : MonoBehaviour {
 	private int currentWeapon = 0;
 	private int maxWeapons = 5;	// 6 weapons, 0 is a weapon
 
+	public bool laserPistolUnlocked;
+	public bool laserPistolActive;
+	public bool rocketLauncherUnlocked;
 	public bool rocketLauncherActive;
+	public bool shotgunUnlocked;
 	public bool shotgunActive;
 
 
 	void Start(){
-
-		//((MonoBehaviour)currentPlayer.GetComponent("ShootPistol")).enabled = true;
-		//((MonoBehaviour)currentPlayer.GetComponent("ShootRocketLauncher")).enabled = false;
+		
 		currentPlayer = this.transform.gameObject;
 		while (currentPlayer.transform.parent) {
 			currentPlayer = currentPlayer.transform.parent.gameObject;
@@ -39,8 +49,12 @@ public class WeaponSwitching : MonoBehaviour {
 		((MonoBehaviour)currentPlayer.GetComponent("ShootShotgun")).enabled = false;
 		((MonoBehaviour)currentPlayer.GetComponent("ShootBeam")).enabled = false;
 
+		laserPistolUnlocked = true;
+		laserPistolActive = true;
+		rocketLauncherUnlocked = false;
 		rocketLauncherActive = false;
-		rocketLauncherActive = false;
+		shotgunUnlocked = false;
+		shotgunActive = false;
 	}
 
 	void Update(){
@@ -82,22 +96,17 @@ public class WeaponSwitching : MonoBehaviour {
 //		}*/
 
 		if (Input.GetKeyDown ("1")) {
-			//currentWeapon = 0;
+			IsActive(1);
 			pv.RPC("SelectWeapon", PhotonTargets.AllBuffered, 0);
-
-			//Debug.Log ("current weapon " + currentWeapon);
-			//SelectWeapon (0);
 			((MonoBehaviour)currentPlayer.GetComponent("ShootPistol")).enabled = true;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootRocketLauncher")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootShotgun")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootBeam")).enabled = false;
 		}
 		if (Input.GetKeyDown ("2")) {
-			//currentWeapon = 1;
-			if(!rocketLauncherActive == false){
+			if(rocketLauncherUnlocked){
+				IsActive(2);
 				pv.RPC("SelectWeapon", PhotonTargets.AllBuffered, 1);
-				//Debug.Log ("current weapon " + currentWeapon);
-				//SelectWeapon (1);
 				((MonoBehaviour)currentPlayer.GetComponent("ShootPistol")).enabled = false;
 				((MonoBehaviour)currentPlayer.GetComponent("ShootRocketLauncher")).enabled = true;
 				((MonoBehaviour)currentPlayer.GetComponent("ShootShotgun")).enabled = false;
@@ -105,12 +114,9 @@ public class WeaponSwitching : MonoBehaviour {
 			}
 		}
 		if (Input.GetKeyDown ("3")) {
-			//currentWeapon = 2;
-			if(!shotgunActive == false){
+			if(shotgunUnlocked){
+				IsActive(3);
 				pv.RPC("SelectWeapon", PhotonTargets.AllBuffered, 2);
-
-				//Debug.Log ("current weapon " + currentWeapon);
-				//SelectWeapon (1);
 				((MonoBehaviour)currentPlayer.GetComponent("ShootPistol")).enabled = false;
 				((MonoBehaviour)currentPlayer.GetComponent("ShootRocketLauncher")).enabled = false;
 				((MonoBehaviour)currentPlayer.GetComponent("ShootShotgun")).enabled = true;
@@ -118,39 +124,27 @@ public class WeaponSwitching : MonoBehaviour {
 			}
 		}
 		if (Input.GetKeyDown ("4")) {
-			//currentWeapon = 3;
 			pv.RPC("SelectWeapon", PhotonTargets.AllBuffered, 3);
-
-			//Debug.Log ("current weapon " + currentWeapon);
-			//			//SelectWeapon (1);
 			((MonoBehaviour)currentPlayer.GetComponent("ShootPistol")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootRocketLauncher")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootShotgun")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootBeam")).enabled = true;
 		}
 		if (Input.GetKeyDown ("5")) {
-			//currentWeapon = 4;
 			pv.RPC("SelectWeapon", PhotonTargets.AllBuffered, 4);
-
-			//Debug.Log ("current weapon " + currentWeapon);
-			//			//SelectWeapon (1);
 			((MonoBehaviour)currentPlayer.GetComponent("ShootPistol")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootRocketLauncher")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootShotgun")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootBeam")).enabled = false;
 		}
 		if (Input.GetKeyDown ("6")) {
-			//currentWeapon = 5;
 			pv.RPC("SelectWeapon", PhotonTargets.AllBuffered, 5);
-
-			//Debug.Log ("current weapon " + currentWeapon);
-						//SelectWeapon (1);
 			((MonoBehaviour)currentPlayer.GetComponent("ShootPistol")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootRocketLauncher")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootShotgun")).enabled = false;
 			((MonoBehaviour)currentPlayer.GetComponent("ShootBeam")).enabled = false;
 		}
-		//WeaponChange ();
+		IconToDisplay ();
 	}
 
 
@@ -162,15 +156,61 @@ public class WeaponSwitching : MonoBehaviour {
 		}
 		weapons[index].SetActive(true);
 		currentWeapon = index;
-		//Debug.Log ("current weapon " + currentWeapon);
 	}
 
 	public void ActivateWeapon(int num){
 		if (num == 2) {
-			rocketLauncherActive = true;
+			rocketLauncherUnlocked = true;
 		}
 		if (num == 3) {
+			shotgunUnlocked = true;
+		}
+	}
+
+	void IsActive(int num)
+	{
+		if (num == 1) {
+			laserPistolActive = true;
+			rocketLauncherActive = false;
+			shotgunActive = false;
+		}
+		if (num == 2) {
+			laserPistolActive = false;
+			rocketLauncherActive = true;
+			shotgunActive = false;
+		}
+		if (num == 3) {
+			laserPistolActive = false;
+			rocketLauncherActive = false;
 			shotgunActive = true;
+		}
+
+	}
+
+	void IconToDisplay(){
+		if (laserPistolActive) {
+			laserPistolIcon = laserPistolTexture;
+		}
+		if (laserPistolUnlocked && !laserPistolActive) {
+			laserPistolIcon = laserPistolTextureOff;
+		}
+		if (rocketLauncherActive){
+			rocketLauncherIcon = cowLauncherTexture;
+		}
+		if (rocketLauncherUnlocked && !rocketLauncherActive) {
+			rocketLauncherIcon = cowLauncherTextureOff;
+		} 
+		if (!rocketLauncherUnlocked) {
+			rocketLauncherIcon = weaponLocked;
+		}
+		if (shotgunActive){
+			shotgunIcon = shotgunTexture;
+		}
+		if (shotgunUnlocked && !shotgunActive) {
+			shotgunIcon = shotgunTextureOff;
+		} 
+		if (!shotgunUnlocked) {
+			shotgunIcon = weaponLocked;
 		}
 	}
 
@@ -179,52 +219,52 @@ public class WeaponSwitching : MonoBehaviour {
 		int currWeap = currentWeapon + 1;
 		switch(currWeap){
 		case 1:
-			GUI.Label (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), laserPistolTexture);
-			GUI.Label (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), cowLauncherTextureOff);
-			GUI.Button (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "Weapon3");
-			GUI.Button (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
-			GUI.Button (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
-			GUI.Button (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
+			GUI.Label (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), laserPistolIcon);
+			GUI.Label (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), rocketLauncherIcon);
+			GUI.Label (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), shotgunIcon);
+			GUI.Label (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
+			GUI.Label (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
+			GUI.Label (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
 			break;
 		case 2:
-			GUI.Label (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), laserPistolTextureOff);
-			GUI.Label (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), cowLauncherTexture);
-			GUI.Button (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "Weapon3");
-			GUI.Button (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
-			GUI.Button (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
-			GUI.Button (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
+			GUI.Label (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), laserPistolIcon);
+			GUI.Label (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), rocketLauncherIcon);
+			GUI.Label (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), shotgunIcon);
+			GUI.Label (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
+			GUI.Label (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
+			GUI.Label (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
 			break;
 		case 3:
-			GUI.Button (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), "Weapon1");
-			GUI.Button (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), "Weapon2");
-			GUI.Button (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "current");
-			GUI.Button (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
-			GUI.Button (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
-			GUI.Button (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
+			GUI.Label (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), "Weapon1");
+			GUI.Label (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), "Weapon2");
+			GUI.Label (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "current");
+			GUI.Label (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
+			GUI.Label (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
+			GUI.Label (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
 			break;
 		case 4:
-			GUI.Button (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), "Weapon1");
-			GUI.Button (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), "Weapon2");
-			GUI.Button (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "Weapon3");
-			GUI.Button (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "current");
-			GUI.Button (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
-			GUI.Button (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
+			GUI.Label (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), "Weapon1");
+			GUI.Label (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), "Weapon2");
+			GUI.Label (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "Weapon3");
+			GUI.Label (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "current");
+			GUI.Label (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
+			GUI.Label (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
 			break;
 		case 5:
-			GUI.Button (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), "Weapon1");
-			GUI.Button (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), "Weapon2");
-			GUI.Button (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "Weapon3");
-			GUI.Button (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
-			GUI.Button (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "current");
-			GUI.Button (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
+			GUI.Label (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), "Weapon1");
+			GUI.Label (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), "Weapon2");
+			GUI.Label (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "Weapon3");
+			GUI.Label (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
+			GUI.Label (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "current");
+			GUI.Label (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "Weapon6");
 			break;
 		case 6:
-			GUI.Button (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), "Weapon1");
-			GUI.Button (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), "Weapon2");
-			GUI.Button (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "Weapon3");
-			GUI.Button (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
-			GUI.Button (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
-			GUI.Button (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "current");
+			GUI.Label (new Rect ((Screen.width / 2) - 300, Screen.height - 100, 100, 100), "Weapon1");
+			GUI.Label (new Rect ((Screen.width / 2) - 200, Screen.height - 100, 100, 100), "Weapon2");
+			GUI.Label (new Rect ((Screen.width / 2) - 100, Screen.height - 100, 100, 100), "Weapon3");
+			GUI.Label (new Rect (Screen.width / 2, Screen.height - 100, 100, 100), "Weapon4");
+			GUI.Label (new Rect ((Screen.width / 2) + 100, Screen.height - 100, 100, 100), "Weapon5");
+			GUI.Label (new Rect ((Screen.width / 2) + 200, Screen.height - 100, 100, 100), "current");
 			break;
 		}
 		
